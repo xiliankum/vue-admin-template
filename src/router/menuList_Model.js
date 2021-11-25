@@ -1,86 +1,122 @@
+/**
+* hidden: true,               是否隐藏路由
+* path: '/welcome',           路由地址
+* component:'Layout',         vue文件路径
+* redirect: noredirect,       路由重定向
+* name:'welcome',             路由名称父级可不填
+* meta : {                    单层级路由父级可不填
+   role: ['admin','editor'],    页面权限
+   title: 'title'               页面标题
+   icon: 'svg-name'             页面图标
+   breadcrumb: false,           如果设置为false，则不会在breadcrumb面包屑中显示(默认 true)
+   keepAlive: false,            页面是否缓存
+ }
+**/
 export default [
   {
-    path: '/welcome',
+    path: '/',
     component: 'Layout',
-    redirect: '/welcome/index',
-    meta: { title: 'Welcome', icon: 'example' },
-    children: [
-      {
-        path: '/welcome/index',
-        name: 'Welcome',
-        component: '/welcome/index',
-        meta: { title: '欢迎首页' }
+    redirect: 'welcome',
+    children: [{
+      path: 'welcome',
+      name: 'Welcome',
+      component: '/welcome/index',
+      meta: {
+        title: '欢迎首页',
+        role: ['admin', 'addbtn1'],
+        icon: 'example'
       }
-    ]
-  },
-  {
-    path: '/commodity',
-    component: 'Layout',
-    redirect: '/commodity/index',
-    meta: { title: 'commodity', icon: 'example' },
-    children: [
-      {
-        path: '/commodity/index',
-        name: 'commodity',
-        component: '/commodity/index',
-        meta: { title: '商品管理' }
-      }
-    ]
-  },
-  {
-    path: '/order',
-    component: 'Layout',
-    redirect: '/order/index',
-    meta: { title: 'order', icon: 'table' },
-    children: [
-      {
-        path: '/order/index',
-        name: 'order',
-        component: '/order/index',
-        meta: { title: '订单管理' }
-      }
-    ]
+    }]
   },
   {
     path: '/user',
     component: 'Layout',
     redirect: '/user/index',
-    meta: { title: 'user', icon: 'table' },
+    children: [{
+      path: '/user/index',
+      name: 'user',
+      component: '/user/index',
+      meta: {
+        title: '用户管理',
+        icon: 'table'
+      }
+    }]
+  },
+  {
+    path: '/recorder',
+    component: 'Layout',
+    redirect: '/recorder/index',
+    children: [{
+      path: '/recorder/index',
+      name: 'recorder',
+      component: '/recorder/index',
+      meta: {
+        title: '录音管理',
+        icon: 'table'
+      }
+    }]
+  },
+  {
+    path: '/components',
+    component: 'Layout',
+    redirect: '/componentsDemo/index',
+    meta: {
+      title: '组件',
+      icon: 'table'
+    },
     children: [
       {
-        path: '/user/index',
-        name: 'user',
-        component: '/user/index',
-        meta: { title: '用户管理' }
+        path: '/componentsDemo/index',
+        name: 'componentsDemo',
+        component: '/components/componentsDemo/index',
+        meta: {
+          title: '小组件'
+        }
+      },
+      {
+        path: '/dragDalog/index',
+        name: 'dragDalog',
+        component: '/components/dragDalog/index',
+        meta: {
+          title: '可拖拽弹窗'
+        }
+      },
+      {
+        path: '/dragKanban/index',
+        name: 'dragKanban',
+        component: '/components/dragKanban/index',
+        meta: {
+          title: '可拖拽看板'
+        }
       }
     ]
   },
   {
-    path: '/customer',
+    path: '/permission',
     component: 'Layout',
-    redirect: '/customer/index',
-    meta: { title: 'customer', icon: 'table' },
-    children: [
-      {
-        path: '/customer/index',
-        name: 'customer',
-        component: '/customer/index',
-        meta: { title: '客户管理' }
+    redirect: '/permission/index',
+    children: [{
+      path: '/permission/index',
+      name: 'permission',
+      component: '/permission/index',
+      meta: {
+        title: '指令权限',
+        icon: 'table'
       }
-    ]
+    }]
   },
   {
     path: '/menu',
     component: 'Layout',
     redirect: '/menu/index',
-    meta: { title: 'menu', icon: 'table' },
-    children: [
-      {
-        path: '/menu/index',
-        name: 'menu',
-        component: '/menu/index',
-        meta: { title: '菜单管理' }
+    children: [{
+      path: '/menu/index',
+      name: 'menu',
+      component: '/menu/index',
+      meta: {
+        title: '菜单管理',
+        icon: 'table'
       }
-    ]
+    }]
   }
 ]

@@ -6,17 +6,18 @@ import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
 import { getAsyncRoutes } from '@/utils/asyncRouter.js'
-import menuListM from '@/router/menuList_Model' // 本地路由
+import { getRole } from '@/api/user'
+// import menuListM from '@/router/menuList_Model' // 本地路由
 
 NProgress.configure({ showSpinner: false }) // 进度条配置
 
-const whiteList = ['/login'] // no redirect whitelist
+const whiteList = ['/login'] // 不需要登录的路由表
 
 router.beforeEach(async(to, from, next) => {
-  // start progress bar
+  // 开始进度条
   NProgress.start()
 
-  // set page title
+  // 更换页面标题
   document.title = getPageTitle(to.meta.title)
 
   // 获取token
@@ -29,14 +30,16 @@ router.beforeEach(async(to, from, next) => {
     } else {
       // 异步获取store中的路由
       const hasRoles = store.getters.permission_routes && store.getters.permission_routes.length > 0
-      console.log('hasRoles', store.getters.permission_routes)
       if (hasRoles) {
         next()
       } else {
         try {
           // 通过用户角色，获取到角色路由表
+          const { code, data } = await getRole()
+          console.log('路由表', code, data)
           // 本地数据
-          const dataList = menuListM
+          // const dataList = menuListM
+          const dataList = data
           //   格式化路由结构
           const accessRoutes = getAsyncRoutes(await dataList)
           //   存到vuex中，菜单栏需要
@@ -55,7 +58,6 @@ router.beforeEach(async(to, from, next) => {
     }
   } else {
     /* 用户未登录*/
-
     if (whiteList.indexOf(to.path) !== -1) {
       // 需要跳转的路由是否是whiteList中的路由，若是，则直接条状
       next()
@@ -71,3 +73,4 @@ router.afterEach(() => {
   // 结束精度条
   NProgress.done()
 })
+

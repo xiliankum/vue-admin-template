@@ -1,29 +1,32 @@
 <template>
   <div class="navbar">
+    <!-- 菜单折叠按钮 -->
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-
+    <!-- 面包屑 -->
     <breadcrumb class="breadcrumb-container" />
-
+    <!-- 右侧用户信息 -->
     <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
+      <template>
+        <screenfull id="screenfull" class="right-menu-item hover-effect" />
+      </template>
+      <el-dropdown class="avatar-container right-menu-item" trigger="click" @visible-change="handleUserInfo" @command="handleCommand">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          <img :src="user_info.avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <span class="user-name">{{ user_info.name }}</span>
+          <i :class="isUserInfoShow?'el-icon-caret-top':'el-icon-caret-bottom'" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
-            <el-dropdown-item>
-              Home
-            </el-dropdown-item>
+            <el-dropdown-item>回到主页</el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
+          <a target="_blank" href="https://github.com/webdyc/vue-admin-template">
             <el-dropdown-item>Github</el-dropdown-item>
           </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
+          <a target="_blank" href="https://webdyc.com/">
+            <el-dropdown-item>博客地址</el-dropdown-item>
           </a>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">Log Out</span>
+            <span style="display:block;">退出登录</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -35,21 +38,38 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import Screenfull from '@/components/Screenfull'
 
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    Screenfull
+  },
+  data() {
+    return {
+      isUserInfoShow: false
+    }
   },
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'user_info',
+      'token'
     ])
   },
   methods: {
+    // 菜单栏展开收起状态
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
+    },
+    // 用户信息展开收起状态
+    handleUserInfo(bool) {
+      this.isUserInfoShow = bool
+    },
+    // 用户信息点击事件
+    handleCommand(command) {
+      this.$message('click on item ' + command)
     },
     async logout() {
       await this.$store.dispatch('user/logout')
@@ -67,7 +87,9 @@ export default {
   overflow: hidden;
   position: relative;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  border-bottom: 1px solid #d8dce5;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+  // box-shadow: 0 1px 4px rgba(0,21,41,.08);
 
   .hamburger-container {
     line-height: 46px;
@@ -119,19 +141,28 @@ export default {
       .avatar-wrapper {
         margin-top: 5px;
         position: relative;
-
+        display: flex;
+        align-items: center;
         .user-avatar {
           cursor: pointer;
           width: 40px;
           height: 40px;
           border-radius: 50px;
         }
-
-        .el-icon-caret-bottom {
+        .user-name{
+          display: inline-block;
+          align-content: center;
+          align-items: center;
+          height: 40px;
+          margin-left: 6px;
+          line-height: 40px;
+          cursor: pointer;
+        }
+        .el-icon-caret-bottom,.el-icon-caret-top {
           cursor: pointer;
           position: absolute;
           right: -20px;
-          top: 25px;
+          // top: 25px;
           font-size: 12px;
         }
       }

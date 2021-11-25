@@ -22,44 +22,151 @@ const users = {
     name: 'Normal Editor'
   }
 }
+// 路由表
+const menuListM = [
+  {
+    path: '/',
+    component: 'Layout',
+    redirect: 'welcome',
+    children: [{
+      path: 'welcome',
+      name: 'Welcome',
+      component: '/welcome/index',
+      meta: {
+        title: '欢迎首页',
+        role: ['admin', 'addbtn1'],
+        icon: 'example'
+      }
+    }]
+  },
+  {
+    path: '/user',
+    component: 'Layout',
+    redirect: '/user/index',
+    children: [{
+      path: '/user/index',
+      name: 'user',
+      component: '/user/index',
+      meta: {
+        title: '用户管理',
+        icon: 'table'
+      }
+    }]
+  },
+  {
+    path: '/recorder',
+    component: 'Layout',
+    redirect: '/recorder/index',
+    children: [{
+      path: '/recorder/index',
+      name: 'recorder',
+      component: '/recorder/index',
+      meta: {
+        title: '录音管理',
+        icon: 'table'
+      }
+    }]
+  },
+  {
+    path: '/components',
+    component: 'Layout',
+    redirect: '/componentsDemo/index',
+    meta: {
+      title: '组件',
+      icon: 'table'
+    },
+    children: [
+      {
+        path: '/componentsDemo/index',
+        name: 'componentsDemo',
+        component: '/components/componentsDemo/index',
+        meta: {
+          title: '小组件'
+        }
+      },
+      {
+        path: '/dragDalog/index',
+        name: 'dragDalog',
+        component: '/components/dragDalog/index',
+        meta: {
+          title: '可拖拽弹窗'
+        }
+      },
+      {
+        path: '/dragKanban/index',
+        name: 'dragKanban',
+        component: '/components/dragKanban/index',
+        meta: {
+          title: '可拖拽看板'
+        }
+      }
+    ]
+  },
+  {
+    path: '/permission',
+    component: 'Layout',
+    redirect: '/permission/index',
+    children: [{
+      path: '/permission/index',
+      name: 'permission',
+      component: '/permission/index',
+      meta: {
+        title: '指令权限',
+        icon: 'table'
+      }
+    }]
+  },
+  {
+    path: '/menu',
+    component: 'Layout',
+    redirect: '/menu/index',
+    children: [{
+      path: '/menu/index',
+      name: 'menu',
+      component: '/menu/index',
+      meta: {
+        title: '菜单管理',
+        icon: 'table'
+      }
+    }]
+  }
+]
 
 module.exports = [
-  // user login
+  // 登录
   {
-    url: '/vue-admin-template/user/login',
+    url: '/user/login',
     type: 'post',
     response: config => {
       const { username } = config.body
-      const token = tokens[username]
-      console.log('config', config.body)
+      const token = tokens[username].token
+      const info = users[token]
       // mock error
       if (!token) {
         return {
           code: 60204,
-          message: 'Account and password are incorrect.'
+          message: '用户名密码错误.'
         }
       }
-
       return {
         code: 20000,
-        data: token
+        data: { info, token }
       }
     }
   },
 
-  // get user info
+  // 获取用户动态路由
   {
-    url: '/vue-admin-template/user/info\.*',
+    url: '/user/role\.*',
     type: 'get',
     response: config => {
-      const { token } = config.query
-      const info = users[token]
+      const info = menuListM
 
       // mock error
       if (!info) {
         return {
           code: 50008,
-          message: 'Login failed, unable to get user details.'
+          message: '获取菜单列表失败.'
         }
       }
 
@@ -72,7 +179,7 @@ module.exports = [
 
   // user logout
   {
-    url: '/vue-admin-template/user/logout',
+    url: '/user/logout',
     type: 'post',
     response: _ => {
       return {

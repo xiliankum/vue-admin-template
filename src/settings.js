@@ -11,11 +11,30 @@ module.exports = {
     * @description 系统名称
     */
   title: 'webdyc',
+
   /**
     * @type {String}
     * @description 系统logo
     */
   logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png',
+
+  /**
+    * @type {String} large| small | mini
+    * @description 菜单栏Logo显示
+    */
+  styleSize: 'small',
+
+  /**
+   * @type {boolean} true | false
+   * @description 是否显示设置
+   */
+  showSettings: true,
+
+  /**
+   * @type {boolean} true | false
+   * @description 是否显示面包屑
+   */
+  tagsView: true,
 
   /**
     * @type {boolean} true | false
@@ -27,11 +46,5 @@ module.exports = {
     * @type {boolean} true | false
     * @description 菜单栏Logo显示
     */
-  sidebarLogo: true,
-
-  /**
-    * @type {String} large| small | mini
-    * @description 菜单栏Logo显示
-    */
-  styleSize: 'small'
+  sidebarLogo: true
 }

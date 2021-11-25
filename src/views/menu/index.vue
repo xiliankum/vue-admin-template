@@ -1,41 +1,68 @@
 <template>
-  <div class="app-container">
-    <div class="crumbs">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>
-          <i class="el-icon-lx-cascades" /> 菜单路由
-        </el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-    <div class="container">
-      <!-- 操作类 -->
-      <div class="handle-box">
-        <el-button size="small" type="primary" @click="handleEdit()">添加顶级菜单</el-button>
+  <div class="app-container flex">
+    <!-- 左侧选择框 -->
+    <el-card class="box-card" shadow="never">
+      <div slot="header" class="clearfix">
+        <span>按钮权限</span>
+        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
       </div>
-      <!-- 内容类 -->
-      <div class="table-box">
-        <el-tree
-          v-loading="listLoading"
-          :data="menuList"
-          show-checkbox
-          node-key="id"
-          :expand-on-click-node="false"
-          :render-content="renderContent"
-        />
+      <div>
+        <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick" />
       </div>
-    </div>
+    </el-card>
+    <!-- 表格 -->
+    <el-table
+      :data="tableData"
+      style="width: 100%;margin-bottom: 20px;"
+      row-key="id"
+      border
+      default-expand-all
+      :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+    >
+      <el-table-column
+        prop="date"
+        label="日期"
+        sortable
+        width="180"
+      />
+      <el-table-column
+        prop="name"
+        label="姓名"
+        sortable
+        width="180"
+      />
+      <el-table-column
+        prop="address"
+        label="地址"
+      />
+    </el-table>
+
     <!-- 编辑弹出框 -->
-    <el-dialog v-dialogDrag :title="isAdd ? '添加菜单' : '编辑菜单'" :visible.sync="editVisible" width="40%" :close-on-click-modal="false" :before-close="handleClose">
-      <el-form ref="updateForm" :model="updateForm" label-width="100px" :rules="personFormRules">
-        <el-form-item label="标题名称" prop="title">
-          <el-col :span="18">
-            <el-input v-model="updateForm.title" autocomplete="off" />
-          </el-col>
+    <el-dialog :title="isAdd ? '添加菜单' : '编辑菜单'" :visible.sync="editVisible" width="50%" :close-on-click-modal="false" :before-close="handleClose">
+      <el-form ref="updateForm" :inline="true" :model="updateForm" label-width="100px" :rules="personFormRules">
+        <el-form-item label="名称">
+          <el-input v-model="updateForm.name" autocomplete="off" :size="styleSize" />
         </el-form-item>
-        <el-form-item label="权限名称" prop="title_e">
-          <el-col :span="18">
-            <el-input v-model="updateForm.title_e" autocomplete="off" />
-          </el-col>
+        <el-form-item label="地址" prop="path">
+          <el-input v-model="updateForm.path" autocomplete="off" :size="styleSize" />
+        </el-form-item>
+        <el-form-item label="文件路径" prop="component">
+          <el-input v-model="updateForm.component" autocomplete="off" :size="styleSize" />
+        </el-form-item>
+        <el-form-item label="重定向">
+          <el-input v-model="updateForm.redirect" autocomplete="off" :size="styleSize" />
+        </el-form-item>
+        <el-form-item label="标题" prop="title">
+          <el-input v-model="updateForm.title" autocomplete="off" :size="styleSize" />
+        </el-form-item>
+        <el-form-item label="图标">
+          <el-input v-model="updateForm.icon" autocomplete="off" :size="styleSize" />
+        </el-form-item>
+        <el-form-item label="缓存">
+          <el-switch v-model="updateForm.keepAlive" />
+        </el-form-item>
+        <el-form-item label="隐藏">
+          <el-switch v-model="updateForm.hidden" />
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -47,16 +74,31 @@
 </template>
 
 <script>
-// import { getMenuList, updateMenu, deleteMenu } from '@/api/api.config' // 接口
-
+import defaultSettings from '@/settings'
+/**
+* name:'welcome',             路由名称
+* path: '/welcome',           路由地址
+* component:'Layout',         vue文件路径
+* redirect: noredirect,       路由重定向
+* meta : {
+  role: ['admin','editor'],    页面权限
+  title: 'title'               页面标题
+  icon: 'svg-name'             页面图标
+  keepAlive: false,            页面是否缓存
+}
+* hidden: true,               是否隐藏
+**/
 // PersonForm的类
 class PersonForm {
   // 值
   constructor() {
+    this.redirect = ''
+    this.path = ''
+    this.name = ''
     this.title = ''
-    this.title_e = ''
-    this.p_id = 0
-    this.id = ''
+    this.icon = ''
+    this.hidden = false
+    this.keepAlive = false
   }
   // 验证方法
   static getRule() {
@@ -70,19 +112,108 @@ export default {
   name: 'SecondHouse',
   data() {
     return {
+      styleSize: defaultSettings.styleSize,
       listLoading: false,
       // 编辑弹出框
       editVisible: false,
       formLoading: false,
       isAdd: true,
       menuList: [],
-      defaultProps: {
-        children: 'list',
-        label: function(data, node) {
-        }
-      },
       updateForm: new PersonForm(),
-      personFormRules: PersonForm.getRule()
+      personFormRules: PersonForm.getRule(),
+      data: [{
+        label: '一级 1',
+        children: [{
+          label: '二级 1-1',
+          children: [{
+            label: '三级 1-1-1'
+          }]
+        }]
+      }, {
+        label: '一级 2',
+        children: [{
+          label: '二级 2-1',
+          children: [{
+            label: '三级 2-1-1'
+          }]
+        }, {
+          label: '二级 2-2',
+          children: [{
+            label: '三级 2-2-1'
+          }]
+        }]
+      }, {
+        label: '一级 3',
+        children: [{
+          label: '二级 3-1',
+          children: [{
+            label: '三级 3-1-1'
+          }]
+        }, {
+          label: '二级 3-2',
+          children: [{
+            label: '三级 3-2-1'
+          }]
+        }]
+      }],
+      defaultProps: {
+        children: 'children',
+        label: 'label'
+      },
+      tableData: [{
+        id: 1,
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        id: 2,
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1517 弄'
+      }, {
+        id: 3,
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1519 弄',
+        children: [{
+          id: 31,
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          id: 32,
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }]
+      }, {
+        id: 4,
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄'
+      }],
+      tableData1: [{
+        id: 1,
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        id: 2,
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1517 弄'
+      }, {
+        id: 3,
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1519 弄',
+        hasChildren: true
+      }, {
+        id: 4,
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄'
+      }]
     }
   },
   created() {
@@ -91,6 +222,9 @@ export default {
     // this.getListData()
   },
   methods: {
+    handleNodeClick(data) {
+      console.log(data)
+    },
     getListData() {
       this.listLoading = true
     //   getMenuList().then(res => {
@@ -147,7 +281,6 @@ export default {
       }
     },
     renderContent(h, { node, data, store }) {
-      console.log(node, data, store)
       return (
         <span class='custom-tree-node'>
           <span>{data.label} <span style='margin-left: 20px'>{data.title_e}</span></span>
@@ -219,17 +352,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container{
-  .table-box{
-    ::v-deep.custom-tree-node {
-      width: 600px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 14px;
-      padding-right: 8px;
-    }
-  }
-
+.box-card{
+  width: 200px;
+  margin-right: 15px;
 }
 </style>

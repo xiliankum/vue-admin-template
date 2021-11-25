@@ -1,56 +1,52 @@
 import { constantRoutes } from '@/router'
-
 /**
- * Use meta.role to determine if the current user has permission
- * @param roles
- * @param route
+ * 根据路由列表返回role
+ * @param routes 路由列表
  */
-function hasPermission(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return roles.some(role => route.meta.roles.includes(role))
-  } else {
-    return true
-  }
-}
-
-/**
- * Filter asynchronous routing tables by recursion
- * @param routes asyncRoutes
- * @param roles
- */
-export function filterAsyncRoutes(routes, roles) {
-  const res = []
-
+export function filterAsyncRoles(routes, roles) {
+  const res = roles || []
   routes.forEach(route => {
     const tmp = { ...route }
-    if (hasPermission(roles, tmp)) {
-      if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, roles)
-      }
-      res.push(tmp)
+    if (tmp && tmp.meta && tmp.meta.role) {
+      tmp.meta.role.forEach(role => {
+        res.push(role)
+      })
+    }
+    if (tmp.children) {
+      return filterAsyncRoles(tmp.children, res)
     }
   })
-
   return res
 }
 
 const state = {
+  // 本地路由
   routes: [],
-  addRoutes: []
+  // 动态路由
+  asyncRoutes: [],
+  // 按钮权限
+  roles: []
 }
 
 const mutations = {
+  // 保存按钮权限列表
+  SET_ROLES: (state, roles) => {
+    state.roles = roles
+  },
+  // 保存动态路由列表
   SET_ROUTES: (state, routes) => {
-    state.addRoutes = routes
+    state.asyncRoutes = routes
     state.routes = routes.concat(constantRoutes)
-    console.log('state.routes', routes.concat(constantRoutes))
   }
 }
 
 const actions = {
+  // 异步处理动态路由及按钮权限
   generateRoutes({ commit }, asyncRoutes) {
-    console.log(asyncRoutes)
     return new Promise(resolve => {
+      // 遍历路由中的role权限
+      const roles = filterAsyncRoles(asyncRoutes)
+      commit('SET_ROLES', roles)
       commit('SET_ROUTES', asyncRoutes)
       resolve(asyncRoutes)
     })
