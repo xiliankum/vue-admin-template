@@ -59,12 +59,20 @@ export default [
   {
     path: '/components',
     component: 'Layout',
-    redirect: '/componentsDemo/index',
+    redirect: '/tinymce/index',
     meta: {
       title: '组件',
       icon: 'table'
     },
     children: [
+      {
+        path: '/tinymce/index',
+        name: 'tinymce',
+        component: '/components/tinymce/index',
+        meta: {
+          title: '富文本编译器'
+        }
+      },
       {
         path: '/componentsDemo/index',
         name: 'componentsDemo',

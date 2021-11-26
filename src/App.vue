@@ -33,4 +33,18 @@ export default {
     padding-right: 15px;
   }
 }
+
+aside {
+    background: #eef1f6;
+    padding: 8px 24px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    display: block;
+    line-height: 32px;
+    font-size: 16px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    color: #2c3e50;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 </style>
