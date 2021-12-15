@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container board">
+  <div class="app-content board">
     <Kanban
       :key="1"
       :list="list1"
@@ -24,35 +24,35 @@
   </div>
 </template>
 <script>
-import Kanban from '@/components/Kanban'
+import Kanban from "@/components/Kanban";
 
 export default {
-  name: 'DragKanbanDemo',
+  name: "DragKanbanDemo",
   components: {
-    Kanban
+    Kanban,
   },
   data() {
     return {
-      group: 'mission',
+      group: "mission",
       list1: [
-        { name: 'Mission', id: 1 },
-        { name: 'Mission', id: 2 },
-        { name: 'Mission', id: 3 },
-        { name: 'Mission', id: 4 }
+        { name: "Mission", id: 1 },
+        { name: "Mission", id: 2 },
+        { name: "Mission", id: 3 },
+        { name: "Mission", id: 4 },
       ],
       list2: [
-        { name: 'Mission', id: 5 },
-        { name: 'Mission', id: 6 },
-        { name: 'Mission', id: 7 }
+        { name: "Mission", id: 5 },
+        { name: "Mission", id: 6 },
+        { name: "Mission", id: 7 },
       ],
       list3: [
-        { name: 'Mission', id: 8 },
-        { name: 'Mission', id: 9 },
-        { name: 'Mission', id: 10 }
-      ]
-    }
-  }
-}
+        { name: "Mission", id: 8 },
+        { name: "Mission", id: 9 },
+        { name: "Mission", id: 10 },
+      ],
+    };
+  },
+};
 </script>
 <style lang="scss">
 .board {

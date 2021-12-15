@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-content">
     <aside>
       音浪通过自定义属性可进行一些简单的基础配置,详见WaveSurfer组件(播放只支持mp3格式，可通过lamejs进行转换),录音组件可通过自定义type属性传入
       mp3||wav 返回两种格式的数据 默认mp3

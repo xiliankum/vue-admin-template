@@ -1,12 +1,16 @@
 <template>
-  <div class="app-container">
-    <div :key="key" style="margin-top:30px;">
+  <div class="app-content">
+    <div :key="key" style="margin-top: 30px">
       <div>
         <span v-permission="['admin']" class="permission-alert">
           只有
           <el-tag class="permission-tag" size="small">admin</el-tag> 可见
         </span>
-        <el-tag v-permission="['admin']" class="permission-sourceCode" type="info">
+        <el-tag
+          v-permission="['admin']"
+          class="permission-sourceCode"
+          type="info"
+        >
           v-permission="['admin']"
         </el-tag>
       </div>
@@ -16,28 +20,38 @@
           只有
           <el-tag class="permission-tag" size="small">editor</el-tag> 可见
         </span>
-        <el-tag v-permission="['editor']" class="permission-sourceCode" type="info">
+        <el-tag
+          v-permission="['editor']"
+          class="permission-sourceCode"
+          type="info"
+        >
           v-permission="['editor']"
         </el-tag>
       </div>
 
       <div>
-        <span v-permission="['admin','editor']" class="permission-alert">
+        <span v-permission="['admin', 'editor']" class="permission-alert">
           拥有
           <el-tag class="permission-tag" size="small">admin</el-tag> 或
           <el-tag class="permission-tag" size="small">editor</el-tag> 可见
         </span>
-        <el-tag v-permission="['admin','editor']" class="permission-sourceCode" type="info">
+        <el-tag
+          v-permission="['admin', 'editor']"
+          class="permission-sourceCode"
+          type="info"
+        >
           v-permission="['admin','editor']"
         </el-tag>
       </div>
     </div>
-    <div :key="'checkPermission'+key" style="margin-top:60px;">
+    <div :key="'checkPermission' + key" style="margin-top: 60px">
       <aside>
-        在某些情况下，不适合使用 v-permission。例如：Element-UI 的 el-tab 或 el-table-column 以及其它动态渲染 dom 的场景。你只能通过手动设置 v-if 来实现。
+        在某些情况下，不适合使用 v-permission。例如：Element-UI 的 el-tab 或
+        el-table-column 以及其它动态渲染 dom 的场景。你只能通过手动设置 v-if
+        来实现。
       </aside>
 
-      <el-tabs type="border-card" style="width:550px;">
+      <el-tabs type="border-card" style="width: 550px">
         <el-tab-pane v-if="checkPermission(['admin'])" label="Admin">
           Admin 才能查看
           <el-tag class="permission-sourceCode" type="info">
@@ -52,7 +66,10 @@
           </el-tag>
         </el-tab-pane>
 
-        <el-tab-pane v-if="checkPermission(['admin','editor'])" label="Admin-OR-Editor">
+        <el-tab-pane
+          v-if="checkPermission(['admin', 'editor'])"
+          label="Admin-OR-Editor"
+        >
           拥有 admin 或者 editor 能查看
           <el-tag class="permission-sourceCode" type="info">
             v-if="checkPermission(['admin','editor'])"
@@ -64,28 +81,28 @@
 </template>
 
 <script>
-import permission from '@/directive/permission/index.js' // 权限判断指令
-import checkPermission from '@/utils/permission' // 权限判断函数
+import permission from "@/directive/permission/index.js"; // 权限判断指令
+import checkPermission from "@/utils/permission"; // 权限判断函数
 
 export default {
-  name: 'DirectivePermission',
+  name: "DirectivePermission",
   directives: { permission },
   data() {
     return {
-      key: 1 // 为了能每次切换权限的时候重新初始化指令
-    }
+      key: 1, // 为了能每次切换权限的时候重新初始化指令
+    };
   },
   methods: {
     checkPermission,
     handleRolesChange() {
-      this.key++
-    }
-  }
-}
+      this.key++;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-.app-container {
+.app-content {
   ::v-deep .permission-alert {
     width: 320px;
     margin-top: 15px;
@@ -102,6 +119,4 @@ export default {
     background-color: #ecf5ff;
   }
 }
-
 </style>
-
