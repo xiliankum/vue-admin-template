@@ -13,14 +13,14 @@ const users = {
     introduction: "I am a super administrator",
     avatar:
       "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
-    name: "Super Admin",
+    username: "Super Admin",
   },
   "editor-token": {
     roles: ["editor"],
     introduction: "I am an editor",
     avatar:
       "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
-    name: "Normal Editor",
+    username: "Normal Editor",
   },
 };
 // 路由表
@@ -146,7 +146,7 @@ const menuListM = [
 module.exports = [
   // 登录
   {
-    url: "/user/login",
+    url: process.env.VUE_APP_BASE_API + "/user/login",
     type: "post",
     response: (config) => {
       const { username } = config.body;
@@ -168,7 +168,7 @@ module.exports = [
 
   // 获取用户动态路由
   {
-    url: "/user/role.*",
+    url: process.env.VUE_APP_BASE_API + "/user/role.*",
     type: "get",
     response: (config) => {
       const info = menuListM;
@@ -190,7 +190,7 @@ module.exports = [
 
   // user logout
   {
-    url: "/user/logout",
+    url: process.env.VUE_APP_BASE_API + "/user/logout",
     type: "post",
     response: (_) => {
       return {

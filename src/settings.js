@@ -24,6 +24,18 @@ module.exports = {
   logo: "https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png",
 
   /**
+   * @type {String}
+   * @description 用户logo
+   */
+  avatar: "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+
+  /**
+   * @type {String}
+   * @description 用户名称
+   */
+  userName: "webdyc",
+
+  /**
    * @type {String} large| small | mini
    * @description 菜单栏Logo显示
    */

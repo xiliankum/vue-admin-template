@@ -1,11 +1,24 @@
 import { login, logout } from "@/api/user";
-import { getToken, setToken, removeToken } from "@/utils/auth";
+import {
+  getToken,
+  setToken,
+  removeToken,
+  setLocalStorage,
+  getLocalStorage,
+  removeLocalStorage,
+} from "@/utils/auth";
 import { resetRouter } from "@/router";
+import defaultSettings from "@/settings";
 
 const getDefaultState = () => {
   return {
     token: getToken(),
-    info: {},
+    info: {
+      username: getLocalStorage("userInfo")
+        ? getLocalStorage("userInfo").username
+        : defaultSettings.userName,
+      avatar: defaultSettings.avatar,
+    },
   };
 };
 
@@ -37,10 +50,12 @@ const actions = {
       })
         .then((response) => {
           const { data } = response;
-          console.log("data", data);
           commit("SET_TOKEN", data.token);
           commit("SET_USERINFO", data.info);
+          // Cookies存储token
           setToken(data.token);
+          // localStorage存储 用户信息
+          setLocalStorage("userInfo", data.info);
           resolve();
         })
         .catch((error) => {
@@ -52,16 +67,22 @@ const actions = {
   // 登出
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      logout(state.token)
-        .then(() => {
-          removeToken(); // 必须先删除token
-          resetRouter();
-          commit("RESET_STATE");
-          resolve();
-        })
-        .catch((error) => {
-          reject(error);
-        });
+      removeToken(); // 必须先删除token
+      removeLocalStorage("userInfo"); // 必须先删除userInfo
+      resetRouter();
+      commit("RESET_STATE");
+      resolve();
+      // logout(state.token)
+      //   .then(() => {
+      //     removeToken(); // 必须先删除token
+      //     removeLocalStorage("userInfo"); // 必须先删除userInfo
+      //     resetRouter();
+      //     commit("RESET_STATE");
+      //     resolve();
+      //   })
+      //   .catch((error) => {
+      //     reject(error);
+      //   });
     });
   },
 
