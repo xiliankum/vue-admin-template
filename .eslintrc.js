@@ -50,7 +50,6 @@ module.exports = {
         properties: "always",
       },
     ],
-    "comma-dangle": [2, "never"],
     "comma-spacing": [
       2,
       {
@@ -213,15 +212,9 @@ module.exports = {
       },
     ],
     "padded-blocks": [2, "never"],
-    quotes: [
-      1,
-      "single",
-      {
-        avoidEscape: true,
-        allowTemplateLiterals: true,
-      },
-    ],
-    semi: [2, "never"],
+    quotes: [1, "single"], //使用单引号，提示是警告
+    quotes: [0, "double"], //使用双引号，关闭
+    semi: 0,
     "semi-spacing": [
       2,
       {

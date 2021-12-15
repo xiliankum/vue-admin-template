@@ -1,199 +1,202 @@
-
 const tokens = {
   admin: {
-    token: 'admin-token'
+    token: "admin-token",
   },
   editor: {
-    token: 'editor-token'
-  }
-}
+    token: "editor-token",
+  },
+};
 
 const users = {
-  'admin-token': {
-    roles: ['admin'],
-    introduction: 'I am a super administrator',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin'
+  "admin-token": {
+    roles: ["admin"],
+    introduction: "I am a super administrator",
+    avatar:
+      "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+    name: "Super Admin",
   },
-  'editor-token': {
-    roles: ['editor'],
-    introduction: 'I am an editor',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
-  }
-}
+  "editor-token": {
+    roles: ["editor"],
+    introduction: "I am an editor",
+    avatar:
+      "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+    name: "Normal Editor",
+  },
+};
 // 路由表
 const menuListM = [
   {
-    path: '/',
-    component: 'Layout',
-    redirect: 'welcome',
-    children: [{
-      path: 'welcome',
-      name: 'Welcome',
-      component: '/welcome/index',
-      meta: {
-        title: '欢迎首页',
-        role: ['admin', 'addbtn1'],
-        icon: 'example'
-      }
-    }]
+    path: "/",
+    component: "Layout",
+    redirect: "welcome",
+    children: [
+      {
+        path: "welcome",
+        name: "Welcome",
+        component: "/welcome/index",
+        meta: {
+          title: "欢迎首页",
+          role: ["admin", "addbtn1"],
+          icon: "example",
+        },
+      },
+    ],
   },
   {
-    path: '/user',
-    component: 'Layout',
-    redirect: '/user/index',
-    children: [{
-      path: '/user/index',
-      name: 'user',
-      component: '/user/index',
-      meta: {
-        title: '用户管理',
-        icon: 'table'
-      }
-    }]
+    path: "/user",
+    component: "Layout",
+    redirect: "/user/index",
+    children: [
+      {
+        path: "/user/index",
+        name: "user",
+        component: "/user/index",
+        meta: {
+          title: "用户管理",
+          icon: "table",
+        },
+      },
+    ],
   },
   {
-    path: '/recorder',
-    component: 'Layout',
-    redirect: '/recorder/index',
-    children: [{
-      path: '/recorder/index',
-      name: 'recorder',
-      component: '/recorder/index',
-      meta: {
-        title: '录音管理',
-        icon: 'table'
-      }
-    }]
-  },
-  {
-    path: '/components',
-    component: 'Layout',
-    redirect: '/tinymce/index',
+    path: "/components",
+    component: "Layout",
+    redirect: "/tinymce/index",
     meta: {
-      title: '组件',
-      icon: 'table'
+      title: "组件",
+      icon: "table",
     },
     children: [
       {
-        path: '/tinymce/index',
-        name: 'tinymce',
-        component: '/components/tinymce/index',
+        path: "/recorder/index",
+        name: "recorder",
+        component: "/components/recorder/index",
         meta: {
-          title: '富文本编译器'
-        }
+          title: "录音",
+        },
       },
       {
-        path: '/componentsDemo/index',
-        name: 'componentsDemo',
-        component: '/components/componentsDemo/index',
+        path: "/tinymce/index",
+        name: "tinymce",
+        component: "/components/tinymce/index",
         meta: {
-          title: '小组件'
-        }
+          title: "富文本编译器",
+        },
       },
       {
-        path: '/dragDalog/index',
-        name: 'dragDalog',
-        component: '/components/dragDalog/index',
+        path: "/componentsDemo/index",
+        name: "componentsDemo",
+        component: "/components/componentsDemo/index",
         meta: {
-          title: '可拖拽弹窗'
-        }
+          title: "小组件",
+        },
       },
       {
-        path: '/dragKanban/index',
-        name: 'dragKanban',
-        component: '/components/dragKanban/index',
+        path: "/dragDalog/index",
+        name: "dragDalog",
+        component: "/components/dragDalog/index",
         meta: {
-          title: '可拖拽看板'
-        }
-      }
-    ]
+          title: "可拖拽弹窗",
+        },
+      },
+      {
+        path: "/dragKanban/index",
+        name: "dragKanban",
+        component: "/components/dragKanban/index",
+        meta: {
+          title: "可拖拽看板",
+        },
+      },
+    ],
   },
   {
-    path: '/permission',
-    component: 'Layout',
-    redirect: '/permission/index',
-    children: [{
-      path: '/permission/index',
-      name: 'permission',
-      component: '/permission/index',
-      meta: {
-        title: '指令权限',
-        icon: 'table'
-      }
-    }]
+    path: "/permission",
+    component: "Layout",
+    redirect: "/permission/index",
+    children: [
+      {
+        path: "/permission/index",
+        name: "permission",
+        component: "/permission/index",
+        meta: {
+          title: "指令权限",
+          icon: "table",
+        },
+      },
+    ],
   },
   {
-    path: '/menu',
-    component: 'Layout',
-    redirect: '/menu/index',
-    children: [{
-      path: '/menu/index',
-      name: 'menu',
-      component: '/menu/index',
-      meta: {
-        title: '菜单管理',
-        icon: 'table'
-      }
-    }]
-  }
-]
+    path: "/menu",
+    component: "Layout",
+    redirect: "/menu/index",
+    children: [
+      {
+        path: "/menu/index",
+        name: "menu",
+        component: "/menu/index",
+        meta: {
+          title: "菜单管理",
+          icon: "table",
+        },
+      },
+    ],
+  },
+];
 
 module.exports = [
   // 登录
   {
-    url: '/user/login',
-    type: 'post',
-    response: config => {
-      const { username } = config.body
-      const token = tokens[username].token
-      const info = users[token]
+    url: "/user/login",
+    type: "post",
+    response: (config) => {
+      const { username } = config.body;
+      const token = tokens[username].token;
+      const info = users[token];
       // mock error
       if (!token) {
         return {
           code: 60204,
-          message: '用户名密码错误.'
-        }
+          message: "用户名密码错误.",
+        };
       }
       return {
         code: 20000,
-        data: { info, token }
-      }
-    }
+        data: { info, token },
+      };
+    },
   },
 
   // 获取用户动态路由
   {
-    url: '/user/role\.*',
-    type: 'get',
-    response: config => {
-      const info = menuListM
+    url: "/user/role.*",
+    type: "get",
+    response: (config) => {
+      const info = menuListM;
 
       // mock error
       if (!info) {
         return {
           code: 50008,
-          message: '获取菜单列表失败.'
-        }
+          message: "获取菜单列表失败.",
+        };
       }
 
       return {
         code: 20000,
-        data: info
-      }
-    }
+        data: info,
+      };
+    },
   },
 
   // user logout
   {
-    url: '/user/logout',
-    type: 'post',
-    response: _ => {
+    url: "/user/logout",
+    type: "post",
+    response: (_) => {
       return {
         code: 20000,
-        data: 'success'
-      }
-    }
-  }
-]
+        data: "success",
+      };
+    },
+  },
+];

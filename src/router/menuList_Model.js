@@ -14,117 +14,119 @@
 **/
 export default [
   {
-    path: '/',
-    component: 'Layout',
-    redirect: 'welcome',
-    children: [{
-      path: 'welcome',
-      name: 'Welcome',
-      component: '/welcome/index',
-      meta: {
-        title: '欢迎首页',
-        role: ['admin', 'addbtn1'],
-        icon: 'example'
-      }
-    }]
+    path: "/",
+    component: "Layout",
+    redirect: "welcome",
+    children: [
+      {
+        path: "welcome",
+        name: "Welcome",
+        component: "/welcome/index",
+        meta: {
+          title: "欢迎首页",
+          role: ["admin", "addbtn1"],
+          icon: "example",
+        },
+      },
+    ],
   },
   {
-    path: '/user',
-    component: 'Layout',
-    redirect: '/user/index',
-    children: [{
-      path: '/user/index',
-      name: 'user',
-      component: '/user/index',
-      meta: {
-        title: '用户管理',
-        icon: 'table'
-      }
-    }]
+    path: "/user",
+    component: "Layout",
+    redirect: "/user/index",
+    children: [
+      {
+        path: "/user/index",
+        name: "user",
+        component: "/user/index",
+        meta: {
+          title: "用户管理",
+          icon: "table",
+        },
+      },
+    ],
   },
   {
-    path: '/recorder',
-    component: 'Layout',
-    redirect: '/recorder/index',
-    children: [{
-      path: '/recorder/index',
-      name: 'recorder',
-      component: '/recorder/index',
-      meta: {
-        title: '录音管理',
-        icon: 'table'
-      }
-    }]
-  },
-  {
-    path: '/components',
-    component: 'Layout',
-    redirect: '/tinymce/index',
+    path: "/components",
+    component: "Layout",
+    redirect: "/tinymce/index",
     meta: {
-      title: '组件',
-      icon: 'table'
+      title: "组件",
+      icon: "table",
     },
     children: [
       {
-        path: '/tinymce/index',
-        name: 'tinymce',
-        component: '/components/tinymce/index',
+        path: "/recorder/index",
+        name: "recorder",
+        component: "/components/recorder/index",
         meta: {
-          title: '富文本编译器'
-        }
+          title: "录音",
+        },
       },
       {
-        path: '/componentsDemo/index',
-        name: 'componentsDemo',
-        component: '/components/componentsDemo/index',
+        path: "/tinymce/index",
+        name: "tinymce",
+        component: "/components/tinymce/index",
         meta: {
-          title: '小组件'
-        }
+          title: "富文本编译器",
+        },
       },
       {
-        path: '/dragDalog/index',
-        name: 'dragDalog',
-        component: '/components/dragDalog/index',
+        path: "/componentsDemo/index",
+        name: "componentsDemo",
+        component: "/components/componentsDemo/index",
         meta: {
-          title: '可拖拽弹窗'
-        }
+          title: "小组件",
+        },
       },
       {
-        path: '/dragKanban/index',
-        name: 'dragKanban',
-        component: '/components/dragKanban/index',
+        path: "/dragDalog/index",
+        name: "dragDalog",
+        component: "/components/dragDalog/index",
         meta: {
-          title: '可拖拽看板'
-        }
-      }
-    ]
+          title: "可拖拽弹窗",
+        },
+      },
+      {
+        path: "/dragKanban/index",
+        name: "dragKanban",
+        component: "/components/dragKanban/index",
+        meta: {
+          title: "可拖拽看板",
+        },
+      },
+    ],
   },
   {
-    path: '/permission',
-    component: 'Layout',
-    redirect: '/permission/index',
-    children: [{
-      path: '/permission/index',
-      name: 'permission',
-      component: '/permission/index',
-      meta: {
-        title: '指令权限',
-        icon: 'table'
-      }
-    }]
+    path: "/permission",
+    component: "Layout",
+    redirect: "/permission/index",
+    children: [
+      {
+        path: "/permission/index",
+        name: "permission",
+        component: "/permission/index",
+        meta: {
+          title: "指令权限",
+          icon: "table",
+        },
+      },
+    ],
   },
   {
-    path: '/menu',
-    component: 'Layout',
-    redirect: '/menu/index',
-    children: [{
-      path: '/menu/index',
-      name: 'menu',
-      component: '/menu/index',
-      meta: {
-        title: '菜单管理',
-        icon: 'table'
-      }
-    }]
-  }
-]
+    path: "/menu",
+    component: "Layout",
+    redirect: "/menu/index",
+    children: [
+      {
+        path: "/menu/index",
+        name: "menu",
+        component: "/menu/index",
+        meta: {
+          title: "菜单管理",
+          icon: "table",
+        },
+      },
+    ],
+  },
+];
