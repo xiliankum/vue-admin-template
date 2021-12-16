@@ -57,7 +57,7 @@ export default [
     children: [
       {
         path: "/charts/index",
-        name: "charts",
+        name: "chartsline",
         component: "/charts/line/index",
         meta: {
           title: "折线图",
@@ -65,7 +65,7 @@ export default [
       },
       {
         path: "/charts/mixChart",
-        name: "charts",
+        name: "chartsmixChart",
         component: "/charts/mixChart/index",
         meta: {
           title: "混合图表",
