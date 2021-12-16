@@ -59,6 +59,33 @@ const menuListM = [
     ],
   },
   {
+    path: "/charts",
+    component: "Layout",
+    redirect: "/charts/index",
+    meta: {
+      title: "图表管理",
+      icon: "table",
+    },
+    children: [
+      {
+        path: "/charts/index",
+        name: "charts",
+        component: "/charts/line/index",
+        meta: {
+          title: "折线图",
+        },
+      },
+      {
+        path: "/charts/mixChart",
+        name: "charts",
+        component: "/charts/mixChart/index",
+        meta: {
+          title: "混合图表",
+        },
+      },
+    ],
+  },
+  {
     path: "/components",
     component: "Layout",
     redirect: "/tinymce/index",
@@ -168,7 +195,7 @@ module.exports = [
 
   // 获取用户动态路由
   {
-    url: process.env.VUE_APP_BASE_API + "/user/role.*",
+    url: process.env.VUE_APP_BASE_API + "/user/role",
     type: "get",
     response: (config) => {
       const info = menuListM;

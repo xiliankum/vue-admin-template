@@ -70,12 +70,14 @@ div:focus {
   overflow: hidden;
 }
 
-
+// 搜索表格样式
 .app-content{
+  position: relative;
   background: #ffffff;
   padding: 20px;
   margin: 24px 16px;
   border-radius: 5px;
+  min-height: calc(100vh - 132px) !important;
   aside {
     background: #eef1f6;
     padding: 8px 24px;
@@ -123,4 +125,9 @@ div:focus {
   width: 3px;
   height: 18px;
   background: #1890ff;
+}
+
+// 普通页面样式
+.app-box{
+  margin: 24px 16px;
 }
